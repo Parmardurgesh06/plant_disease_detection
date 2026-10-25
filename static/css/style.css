@@ -1,0 +1,734 @@
+
+/* ========================================
+   GLOBAL STYLES
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7faf6;
+    color: #183b2a;
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+/* ========================================
+   NAVBAR
+======================================== */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 8%;
+    background: white;
+    border-bottom: 1px solid #e4eee5;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.brand-icon {
+    font-size: 30px;
+}
+
+.brand strong {
+    color: #38945a;
+}
+
+.nav-link {
+    color: #246b42;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: #38945a;
+}
+
+/* ========================================
+   MAIN LAYOUT
+======================================== */
+
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 45px 25px;
+}
+
+/* ========================================
+   HERO SECTION
+======================================== */
+
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 75px;
+}
+
+.eyebrow {
+    color: #438b55;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-size: clamp(36px, 5vw, 58px);
+    line-height: 1.15;
+    margin: 18px 0;
+}
+
+.hero h1 span {
+    color: #42945a;
+}
+
+.hero-content > p {
+    color: #647568;
+    max-width: 500px;
+    margin-bottom: 25px;
+}
+
+.hero-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    color: #3a7650;
+    font-size: 13px;
+}
+
+.hero-image img {
+    display: block;
+    width: 100%;
+    height: 370px;
+    object-fit: cover;
+    border-radius: 24px;
+}
+
+/* ========================================
+   UPLOAD SECTION
+======================================== */
+
+.upload-section {
+    background: white;
+    padding: 50px 25px;
+    border-radius: 24px;
+    border: 1px solid #e4eee5;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.section-heading h1,
+.section-heading h2 {
+    font-size: 34px;
+    margin: 8px 0;
+}
+
+.section-heading p {
+    color: #718073;
+}
+
+.upload-card {
+    max-width: 650px;
+    margin: auto;
+}
+
+/* Upload drop area */
+
+.upload-area {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 280px;
+    padding: 35px 20px;
+    text-align: center;
+    border: 2px dashed #b9d7bf;
+    border-radius: 18px;
+    background: #f8fcf8;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.upload-area:hover {
+    background: #eff8ef;
+    border-color: #43965b;
+}
+
+.upload-area.dragging {
+    background: #e5f5e6;
+    border-color: #267b43;
+    border-style: solid;
+}
+
+/* Upload instructions */
+
+.upload-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.upload-area h3 {
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.upload-area p {
+    color: #728174;
+    font-size: 14px;
+}
+
+/* Custom browse button */
+
+.upload-button {
+    display: inline-block;
+    background: #e2f2e4;
+    color: #287442;
+    padding: 10px 22px;
+    border-radius: 9px;
+    font-weight: bold;
+    margin: 18px 0 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.upload-button:hover {
+    background: #d2ead5;
+}
+
+.file-info {
+    font-size: 12px !important;
+}
+
+/* Hide default file input but keep it functional */
+
+.upload-area input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+}
+
+/* Image preview */
+
+#preview-image {
+    display: none;
+    width: auto;
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    margin: 0 auto;
+    border-radius: 12px;
+}
+
+#preview-image.visible {
+    display: block;
+}
+
+#upload-content.hidden {
+    display: none;
+}
+
+/* ========================================
+   ANALYZE BUTTON
+======================================== */
+
+.analyze-button {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 10px;
+    background: #267b43;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.analyze-button:hover {
+    background: #195e32;
+    transform: translateY(-1px);
+}
+
+.analyze-button span {
+    margin-left: 8px;
+}
+
+.analyze-button:disabled {
+    opacity: 0.75;
+    cursor: wait;
+    transform: none;
+}
+
+/* ========================================
+   ERROR MESSAGE
+======================================== */
+
+.error-message {
+    color: #b42318;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* ========================================
+   HOW IT WORKS SECTION
+======================================== */
+
+.info-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 65px 0;
+}
+
+.info-card {
+    padding: 25px;
+    background: white;
+    border: 1px solid #e4eee5;
+    border-radius: 16px;
+}
+
+.info-card > span {
+    color: #42945a;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.info-card h3 {
+    margin: 8px 0;
+}
+
+.info-card p {
+    color: #718073;
+    font-size: 14px;
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    background: white;
+    border-top: 1px solid #e4eee5;
+    color: #4e7258;
+    font-size: 14px;
+}
+
+.footer-note {
+    color: #8a978c;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* ========================================
+   PREDICTION RESULT PAGE
+======================================== */
+
+.result-main {
+    max-width: 1050px;
+    margin: auto;
+    padding: 55px 25px;
+}
+
+.result-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    background: white;
+    padding: 25px;
+    border: 1px solid #e4eee5;
+    border-radius: 22px;
+}
+
+.result-image img {
+    display: block;
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.result-details {
+    padding: 20px 10px;
+}
+
+.result-label {
+    color: #438b55;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.result-details h2 {
+    font-size: 32px;
+    margin: 12px 0;
+    overflow-wrap: anywhere;
+}
+
+.result-description {
+    color: #718073;
+    margin-bottom: 25px;
+}
+
+/* Confidence score */
+
+.confidence-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    background: #eff8ef;
+    padding: 18px;
+    border-radius: 12px;
+}
+
+.confidence-box strong {
+    color: #267b43;
+    font-size: 25px;
+}
+
+.disclaimer {
+    color: #8a7250;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+.another-button {
+    margin-top: 25px;
+}
+
+/* ========================================
+   DISEASE INFORMATION
+======================================== */
+
+.disease-info {
+    margin: 65px 0;
+}
+
+.disease-guide {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 35px;
+    background: white;
+    border: 1px solid #e4eee5;
+    border-radius: 20px;
+}
+
+.guide-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e4eee5;
+}
+
+.guide-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 65px;
+    height: 65px;
+    background: #eff8ef;
+    border-radius: 15px;
+    font-size: 32px;
+}
+
+.guide-header h3 {
+    font-size: 25px;
+    margin-bottom: 4px;
+}
+
+.guide-subtitle {
+    color: #718073;
+    font-size: 14px;
+}
+
+.disease-guide h4 {
+    color: #267b43;
+    margin: 22px 0 10px;
+}
+
+.disease-guide ul {
+    padding-left: 22px;
+    color: #58685b;
+}
+
+.disease-guide li {
+    margin-bottom: 9px;
+}
+
+.healthy-guide {
+    background: #f8fcf8;
+}
+
+/* ========================================
+   PREDICTION HISTORY
+======================================== */
+
+.history-main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 55px 25px;
+}
+
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.history-card {
+    background: white;
+    border: 1px solid #e4eee5;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.history-card img {
+    display: block;
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+}
+
+.history-details {
+    padding: 20px;
+}
+
+.history-date {
+    color: #829084;
+    font-size: 12px;
+}
+
+.history-details h3 {
+    margin: 8px 0;
+    overflow-wrap: anywhere;
+}
+
+.history-details p {
+    color: #718073;
+    font-size: 14px;
+}
+
+.history-details strong {
+    color: #267b43;
+}
+
+.empty-history {
+    max-width: 550px;
+    margin: auto;
+    padding: 50px 25px;
+    text-align: center;
+    background: white;
+    border: 1px solid #e4eee5;
+    border-radius: 20px;
+}
+
+.empty-history .analyze-button {
+    max-width: 300px;
+    margin: 25px auto 0;
+}
+
+/* ========================================
+   AI SCANNING ANIMATION
+======================================== */
+
+.scanning-message {
+    display: none;
+    text-align: center;
+    margin-top: 25px;
+    color: #267b43;
+}
+
+.scanning-message.active {
+    display: block;
+}
+
+.scanning-message p {
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.scanning-message > span {
+    color: #718073;
+    font-size: 13px;
+}
+
+.scanner {
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+    height: 5px;
+    margin: 15px auto;
+    overflow: hidden;
+    background: #e2f2e4;
+    border-radius: 10px;
+}
+
+.scanner::after {
+    content: "";
+    position: absolute;
+    width: 35%;
+    height: 100%;
+    background: #267b43;
+    border-radius: 10px;
+    animation: scan 1.2s ease-in-out infinite;
+}
+
+@keyframes scan {
+    0% {
+        left: -35%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+/* ========================================
+   TABLET RESPONSIVENESS
+======================================== */
+
+@media (max-width: 850px) {
+    .history-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ========================================
+   MOBILE RESPONSIVENESS
+======================================== */
+
+@media (max-width: 750px) {
+    main {
+        padding: 35px 20px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .hero-image img {
+        height: 280px;
+    }
+
+    .hero h1 {
+        font-size: 39px;
+    }
+
+    .info-section {
+        grid-template-columns: 1fr;
+    }
+
+    .result-card {
+        grid-template-columns: 1fr;
+    }
+
+    .result-image img {
+        height: 300px;
+    }
+
+    .section-heading h1,
+    .section-heading h2 {
+        font-size: 28px;
+    }
+
+    .navbar {
+        padding: 18px 5%;
+    }
+}
+
+/* ========================================
+   SMALL MOBILE SCREENS
+======================================== */
+
+@media (max-width: 600px) {
+    .disease-guide {
+        padding: 22px;
+    }
+
+    .guide-header h3 {
+        font-size: 21px;
+    }
+}
+
+@media (max-width: 550px) {
+    .history-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 25px 15px;
+    }
+
+    .upload-section {
+        padding: 30px 15px;
+    }
+
+    .upload-area {
+        padding: 25px 12px;
+        min-height: 240px;
+    }
+
+    .upload-area h3 {
+        font-size: 18px;
+    }
+
+    .analyze-button {
+        font-size: 14px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero-points {
+        gap: 10px;
+    }
+
+    .result-main,
+    .history-main {
+        padding: 30px 15px;
+    }
+
+    .result-card {
+        padding: 15px;
+    }
+
+}

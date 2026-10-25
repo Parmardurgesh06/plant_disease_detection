@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PlantCare AI | Disease Detection</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="brand">
+        <span class="brand-icon">🌿</span>
+        <span>PlantCare <strong>AI</strong></span>
+    </div>
+
+    <a href="/" class="nav-link">Home</a>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="eyebrow">AI-POWERED PLANT HEALTH</span>
+
+            <h1>Keep your plants<br>
+                <span>healthy and thriving.</span>
+            </h1>
+
+            <p>
+                Detect common tomato leaf diseases using artificial
+                intelligence. Upload a leaf image and let our
+                machine learning model analyze it.
+            </p>
+
+            <div class="hero-points">
+                <span>✓ Easy to use</span>
+                <span>✓ AI-based analysis</span>
+                <span>✓ Instant prediction</span>
+            </div>
+        </div>
+
+        <div class="hero-image">
+            <img
+                src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=900&q=85"
+                alt="Healthy green plants in a garden">
+        </div>
+    </section>
+
+    <section class="upload-section">
+
+        <div class="section-heading">
+            <span class="eyebrow">START YOUR ANALYSIS</span>
+            <h2>Check your plant's health</h2>
+            <p>Upload a clear photo of a leaf to get started.</p>
+        </div>
+
+        <form action="/" method="POST" enctype="multipart/form-data"
+      class="upload-card" id="upload-form">
+
+           <div class="upload-area" id="drop-area">
+
+    <div id="upload-content">
+        <div class="upload-icon">🌿</div>
+
+        <h3>Drop your leaf image here</h3>
+
+        <p>Or select an image from your computer</p>
+
+        <label for="file" class="upload-button">
+            Browse Images
+        </label>
+
+        <p class="file-info">
+            JPG, JPEG or PNG · Maximum 5 MB
+        </p>
+    </div>
+
+    <img id="preview-image" alt="Selected leaf preview">
+
+    <input type="file"
+           id="file"
+           name="image"
+           accept=".jpg,.jpeg,.png"
+           required>
+</div>
+            <button type="submit" class="analyze-button" id="analyze-button">
+    <span id="button-text">Analyze Plant Leaf →</span>
+</button>
+
+<div class="scanning-message" id="scanning-message">
+    <div class="scanner"></div>
+    <p>Analyzing your leaf image...</p>
+    <span>Please wait while our AI model processes the image.</span>
+</div>
+
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+
+        </form>
+
+    </section>
+
+    <section class="info-section">
+        <div class="info-card">
+            <span>01</span>
+            <h3>Upload</h3>
+            <p>Select a clear image of a tomato leaf.</p>
+        </div>
+
+        <div class="info-card">
+            <span>02</span>
+            <h3>Analyze</h3>
+            <p>Our trained CNN model analyzes the image.</p>
+        </div>
+
+        <div class="info-card">
+            <span>03</span>
+            <h3>Get Results</h3>
+            <p>View the predicted disease and confidence score.</p>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>PlantCare AI · Machine Learning Project</p>
+    <p class="footer-note">
+        Predictions are estimates and should not replace expert
+        agricultural advice.
+    </p>
+</footer>
+<script>
+    const fileInput = document.getElementById("file");
+    const dropArea = document.getElementById("drop-area");
+    const previewImage = document.getElementById("preview-image");
+    const uploadContent = document.getElementById("upload-content");
+
+    function resetPreview() {
+        fileInput.value = "";
+        previewImage.src = "";
+        previewImage.classList.remove("visible");
+        uploadContent.classList.remove("hidden");
+    }
+
+    function showPreview(file) {
+        if (!file) return;
+
+        const allowedTypes = ["image/jpeg", "image/png"];
+
+        if (!allowedTypes.includes(file.type)) {
+            alert("Please select a JPG or PNG image.");
+            resetPreview();
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert("Image must be smaller than 5 MB.");
+            resetPreview();
+            return;
+        }
+
+        previewImage.src = URL.createObjectURL(file);
+        previewImage.classList.add("visible");
+        uploadContent.classList.add("hidden");
+    }
+
+    fileInput.addEventListener("change", function () {
+        showPreview(fileInput.files[0]);
+    });
+
+    dropArea.addEventListener("dragover", function (event) {
+        event.preventDefault();
+        dropArea.classList.add("dragging");
+    });
+
+    dropArea.addEventListener("dragleave", function () {
+        dropArea.classList.remove("dragging");
+    });
+
+    dropArea.addEventListener("drop", function (event) {
+        event.preventDefault();
+        dropArea.classList.remove("dragging");
+
+        const file = event.dataTransfer.files[0];
+
+        if (file) {
+            const transfer = new DataTransfer();
+            transfer.items.add(file);
+            fileInput.files = transfer.files;
+
+            showPreview(file);
+        }
+    });
+</script>
+<script>
+    const uploadForm = document.getElementById("upload-form");
+    const analyzeButton = document.getElementById("analyze-button");
+    const scanningMessage = document.getElementById("scanning-message");
+    const buttonText = document.getElementById("button-text");
+
+    uploadForm.addEventListener("submit", function (event) {
+
+        const fileInput = document.getElementById("file");
+
+        if (!fileInput.files.length) {
+            event.preventDefault();
+            alert("Please select a leaf image first.");
+            return;
+        }
+
+        scanningMessage.classList.add("active");
+        analyzeButton.disabled = true;
+        buttonText.textContent = "Analyzing...";
+    });
+</script>
+</body>
+</html>

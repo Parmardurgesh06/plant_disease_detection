@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prediction History | PlantCare AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="brand">
+        <span class="brand-icon">🌿</span>
+        <span>PlantCare <strong>AI</strong></span>
+    </div>
+
+    <nav>
+        <a href="/" class="nav-link">Home</a>
+    </nav>
+</header>
+
+<main class="history-main">
+
+    <div class="section-heading">
+        <span class="eyebrow">YOUR ACTIVITY</span>
+        <h1>Prediction History</h1>
+        <p>Review the leaf images analyzed by PlantCare AI.</p>
+    </div>
+
+    {% if history %}
+
+    <div class="history-grid">
+
+        {% for item in history %}
+
+        <article class="history-card">
+
+            <img src="{{ url_for('static', filename=item.image_path) }}"
+                 alt="Previously analyzed leaf">
+
+            <div class="history-details">
+
+                <span class="history-date">{{ item.created_at }}</span>
+
+                <h3>{{ item.prediction }}</h3>
+
+                <p>
+                    Confidence:
+                    <strong>{{ "%.2f"|format(item.confidence) }}%</strong>
+                </p>
+
+            </div>
+
+        </article>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-history">
+        <div class="upload-icon">🌱</div>
+        <h2>No predictions yet</h2>
+        <p>Analyze your first tomato leaf to see it here.</p>
+        <a href="/" class="analyze-button">Analyze a Leaf →</a>
+    </div>
+
+    {% endif %}
+
+</main>
+
+<footer>
+    <p>PlantCare AI · Machine Learning Project</p>
+</footer>
+
+</body>
+</html>
